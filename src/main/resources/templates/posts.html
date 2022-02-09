@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-800 text-white">
+    <!--Navbar-->
+    <nav class="sticky top-0 w-full grid grid-cols-[120px_minmax(0,_auto)_32px] lg:grid-cols-[120px_minmax(0,_1fr)_220px] place-items-center bg-gray-700/70 backdrop-blur supports-backdrop-blur:bg-white/90 p-4 z-10">
+        <div>
+            <a href="/" class="font-semibold text-xl text-white">
+                Spring Blog
+            </a>
+        </div>
+        <div class="lg:ml-[100px]">
+            <form th:action="@{/}" class="hidden lg:block">
+                <div class="grid grid-cols-[auto,_68px] gap-3">
+                    <div class="relative w-[420px]">
+                        <label class="absolute inset-y-0 left-0 items-center z-10">
+                            <select name="c" class="h-[46px] bg-transparent border border-gray-500 rounded-[0.5rem_0_0_0.5rem] block w-full p-2.5">
+                                <option class="bg-gray-600" value="pc">Post content</option>
+                                <option class="bg-gray-600" value="t">Tag</option>
+                            </select>
+                        </label>
+                        <label>
+                            <input name="f" type="text" placeholder="Search" class="bg-gray-600/60 backdrop-blur supports-backdrop-blur:bg-white/90 border border-gray-500 rounded-lg block w-full py-2.5 pl-[143px] pr-12">
+                        </label>
+                        <button class="absolute inset-y-0 right-0 items-center px-[11px]">
+                            <svg class="h-6 text-gray-400 hover:[stroke:white]" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-[repeat(2,_24px)] gap-5 place-self-center">
+                        <button>
+                            <svg id="sort_time" class="h-12 w-6 hover:[stroke:deepskyblue]" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path transform="translate(0, -12)" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path transform="translate(0, 12)" id="time_up" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                <path transform="translate(0, 12)" id="time_down" style="display: none" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                            </svg>
+                        </button>
+                        <button>
+                            <svg id="sort_name" class="h-12 w-6 hover:[stroke:deepskyblue]" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path transform="translate(0, -12)" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                                <path transform="translate(0, 12)" id="name_up" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                <path transform="translate(0, 12)" id="name_down" style="display: none" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        <div class="hidden lg:block">
+            <a href="/login" class="text-gray-400 hover:text-white cursor-pointer mx-3 leading-8">
+                Login
+            </a>
+            <a href="/register" class="text-gray-400 hover:text-white cursor-pointer mx-3 leading-8">
+                Register
+            </a>
+        </div>
+        <div>
+            <!-- Mobile menu -->
+            <svg class="svg-button lg:hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
+            <div class="hidden mobile-menu fixed grid auto-rows-min top-[60px] inset-x-0">
+                <form th:action="@{/}">
+                    <div class="relative w-11/12 mx-auto my-3">
+                        <label class="absolute inset-y-0 left-0 items-center z-10">
+                            <select name="c" class="h-[46px] bg-transparent border border-gray-500 rounded-[0.5rem_0_0_0.5rem] block w-full p-2.5">
+                                <option class="bg-gray-600" value="pc">Post content</option>
+                                <option class="bg-gray-600" value="t">Tag</option>
+                            </select>
+                        </label>
+                        <label>
+                            <input name="f" type="text" placeholder="Search" class="bg-gray-600/60 backdrop-blur supports-backdrop-blur:bg-white/90 border border-gray-500 rounded-lg block w-full py-2.5 pl-[143px] pr-12">
+                        </label>
+                        <button class="absolute inset-y-0 right-0 items-center px-[11px]">
+                            <svg class="h-6 text-gray-400 hover:[stroke:white]" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                <a href="/login" class="text-gray-400 hover:text-white cursor-pointer m-3 px-3 leading-8">
+                    Login
+                </a>
+                <a href="/register" class="text-gray-400 hover:text-white cursor-pointer m-3 px-3 leading-8">
+                    Register
+                </a>
+            </div>
+        </div>
+    </nav>
+    <script>
+        const btn = document.querySelector(".svg-button");
+        const menu = document.querySelector(".mobile-menu");
+        const navbar = document.querySelector("nav");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+            !navbar.style.paddingBottom ? navbar.style.paddingBottom = "198px" : navbar.style.paddingBottom = "";
+        });
+    </script>
+    <!--Posts-->
+    <div id="parent" class="grid grid-cols-[minmax(150px,_500px)] gap-8 place-content-center m-10">
+        <th:block th:each="post : ${posts}">
+            <div th:replace="fragments/post :: post(${post})"></div>
+        </th:block>
+    </div>
+    <script>
+        let status_time = -1;
+        let status_name = -1;
+        const parent = document.getElementById("parent");
+        const first_div = parent.getElementsByTagName("div")[0];
+        const posts = Array.from(document.getElementsByClassName("post"));
+        const sort_time = document.getElementById("sort_time");
+        const sort_name = document.getElementById("sort_name");
+        sort_time.addEventListener("click", onClick, false);
+        sort_name.addEventListener("click", onClick, false);
+        const sort_time_up = document.getElementById("time_up");
+        const sort_time_down = document.getElementById("time_down");
+        const sort_name_up = document.getElementById("name_up");
+        const sort_name_down = document.getElementById("name_down");
+
+        function onClick() {
+            if (this.id === "sort_time") {
+                status_time = ~~!status_time;
+                status_name = -1;
+                sort_time.style.stroke = "deepskyblue"
+                sort_name.style.stroke = "";
+                if (status_time) {
+                    sort_time_up.style.display = "none";
+                    sort_time_down.style.display = "initial";
+                    sort_name_up.style.display = "initial";
+                    sort_name_down.style.display = "none";
+                    const sorted = posts.sort((a, b) => +b.href.match("(?<=post\\/)\\d+")[0] - +a.href.match("(?<=post\\/)\\d+")[0]);
+                    parent.innerHTML = "";
+                    parent.appendChild(first_div);
+                    for (let i = 0; i < posts.length; i++) {
+                        parent.appendChild(sorted[i]);
+                    }
+                } else {
+                    sort_time_up.style.display = "initial";
+                    sort_time_down.style.display = "none";
+                    sort_name_up.style.display = "initial";
+                    sort_name_down.style.display = "none";
+                    const sorted = posts.sort((a, b) => +a.href.match("(?<=post\\/)\\d+")[0] - +b.href.match("(?<=post\\/)\\d+")[0]);
+                    parent.innerHTML = "";
+                    parent.appendChild(first_div);
+                    for (let i = 0; i < posts.length; i++) {
+                        parent.appendChild(sorted[i]);
+                    }
+                }
+            } else {
+                status_name = ~~!status_name;
+                status_time = -1;
+                sort_time.style.stroke = ""
+                sort_name.style.stroke = "deepskyblue";
+                if (status_name) {
+                    sort_time_up.style.display = "initial";
+                    sort_time_down.style.display = "none";
+                    sort_name_up.style.display = "none";
+                    sort_name_down.style.display = "initial";
+                    const sorted = posts.sort((a, b) => b.innerText.localeCompare(a.innerText));
+                    parent.innerHTML = "";
+                    parent.appendChild(first_div);
+                    for (let i = 0; i < posts.length; i++) {
+                        parent.appendChild(sorted[i]);
+                    }
+                } else {
+                    sort_time_up.style.display = "initial";
+                    sort_time_down.style.display = "none";
+                    sort_name_up.style.display = "initial";
+                    sort_name_down.style.display = "none";
+                    const sorted = posts.sort((a, b) => a.innerText.localeCompare(b.innerText));
+                    parent.innerHTML = "";
+                    parent.appendChild(first_div);
+                    for (let i = 0; i < posts.length; i++) {
+                        parent.appendChild(sorted[i]);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
